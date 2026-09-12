@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield – Professional Password Security Intelligence Engine</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <!-- Advanced Cyber Background & Particle Effects -->
+    <div class="cyber-grid" id="cyberGrid"></div>
+    <div class="particles-container" id="particlesContainer"></div>
+    <div class="ambient-glow bg-green"></div>
+    <div class="ambient-glow bg-blue"></div>
+    <div class="ambient-glow bg-purple"></div>
+
+    <!-- Navigation Bar -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="logo-icon-wrapper">
+                    <i class="fa-solid fa-shield-halved logo-icon animate-glow"></i>
+                    <span class="pulse-ring"></span>
+                </div>
+                <div class="logo-text">
+                    <h1>CYBER<span>SHIELD</span></h1>
+                    <span class="tagline">SECURITY ANALYZER v1.4.0</span>
+                </div>
+            </div>
+            
+            <nav class="nav-links" id="navLinks">
+                <button type="button" class="nav-link-btn" id="aboutBtn">
+                    <i class="fa-solid fa-circle-info"></i> About
+                </button>
+                <div class="status-badge">
+                    <span class="status-indicator"></span>
+                    <span class="status-label">SYS_ACTIVE</span>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <button class="close-drawer-btn" id="closeDrawerBtn"><i class="fa-solid fa-xmark"></i></button>
+        <div class="drawer-content">
+            <button type="button" class="drawer-link-btn" id="aboutBtnMobile">
+                <i class="fa-solid fa-circle-info"></i> About System
+            </button>
+            <div class="drawer-status">
+                <span class="status-indicator"></span>
+                <span>SYSTEM STATUS: SECURE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal Dialog -->
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-circle-nodes text-blue"></i> CyberShield Architecture</h3>
+                <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>CyberShield</strong> is an enterprise-grade password defense diagnostic sandbox built for cybersecurity professionals and academic verification.</p>
+                
+                <div class="tech-specs-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">Entropy Model</span>
+                        <span class="spec-val">Shannon Log2 Math</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Rig Simulation</span>
+                        <span class="spec-val">100 Billion Guesses/s</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Pattern Mining</span>
+                        <span class="spec-val">QWERTY Walks & Sequences</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Integrity</span>
+                        <span class="spec-val">MD5, SHA1, SHA2, SHA512</span>
+                    </div>
+                </div>
+
+                <div class="modal-divider"></div>
+                <p class="modal-note"><i class="fa-solid fa-shield-virus text-green"></i> <strong>Security Statement:</strong> CyberShield operates entirely locally. No passwords or telemetry inputs are ever stored on a remote database or shared with external third-party servers.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cyber-btn btn-primary" id="closeModalOk">Acknowledge</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="dashboard-container">
+        
+        <!-- Error Banner -->
+        {% if error %}
+        <div class="error-banner animate-fade-in" id="errorBanner">
+            <i class="fa-solid fa-triangle-exclamation err-icon"></i>
+            <div class="error-text">
+                <strong>SEC_ALERT:</strong> {{ error }}
+            </div>
+            <button class="close-err-btn" onclick="document.getElementById('errorBanner').remove()">&times;</button>
+        </div>
+        {% endif %}
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-grid-container">
+                <div class="hero-text-area animate-slide-up">
+                    <span class="cyber-badge-glow"><i class="fa-solid fa-radar"></i> CRYPTO ASSURANCE PORTAL</span>
+                    <h2 class="hero-title">CYBER<span class="text-neon-green">SHIELD</span></h2>
+                    <h3 class="hero-subtitle">Professional Password Intelligence Engine</h3>
+                    <p class="hero-description">
+                        Assess security levels in real-time. Uncover structural keyboard patterns, dictionary vulnerabilities, compute Shannon information entropy, and generate cryptographically secure credentials in a unified diagnostic interface.
+                    </p>
+                    <div class="hero-actions">
+                        <button type="button" class="cyber-btn btn-primary lg" id="startAnalysisBtn">
+                            <span class="btn-shine"></span>
+                            <i class="fa-solid fa-gauge-high"></i> Start Diagnostics
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-visual-area">
+                    <!-- Interactive Cybersecurity SVG Visualizer -->
+                    <div class="shield-visualizer-container">
+                        <svg class="shield-visualizer" viewBox="0 0 200 200">
+                            <!-- Outer Hexagon Grid -->
+                            <polygon points="100,10 180,50 180,150 100,190 20,150 20,50" class="hex-outer" />
+                            <!-- Rotating Cyber Ring -->
+                            <circle cx="100" cy="100" r="65" class="cyber-ring ring-1" />
+                            <circle cx="100" cy="100" r="50" class="cyber-ring ring-2" />
+                            <!-- Scanning Laser Line -->
+                            <line x1="20" y1="100" x2="180" y2="100" class="laser-line" />
+                            <!-- Shield Icon Inside -->
+                            <g transform="translate(75, 75) scale(2.0)" class="shield-g">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-svg-path" />
+                            </g>
+                        </svg>
+                        <div class="visualizer-overlay-text font-mono">
+                            <div class="scanning-text">SCANNING_ACTIVE</div>
+                            <div class="bit-rate" id="telemetryDataText">HASH_RATE: 100G/S</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Password Analysis Card -->
+        <div class="grid-layout" id="analysisAnchor">
+            <!-- Left Side: Password Strength Analyzer -->
+            <section class="card glass-card span-lg animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-key-skeleton card-title-icon text-blue"></i>
+                        <h2>Strength Assessment & Diagnostics</h2>
+                    </div>
+                    <span class="sec-label">MODULE_01</span>
+                </div>
+                
+                <div class="card-body">
+                    <!-- Privacy Guarantee Banner -->
+                    <div class="privacy-notice-banner">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span><strong>100% Local Browser Analysis:</strong> Evaluated in-memory directly in your browser. Passwords are never sent, uploaded, logged, or saved anywhere.</span>
+                    </div>
+
+                    <p class="card-description">
+                        Type or generate any password. The analyzer evaluates cryptographic strength locally, inspects character composition, detects sequential and dictionary patterns, and calculates educational crack times across attack vectors.
+                    </p>
+
+                    <!-- Primary Analyzer Form -->
+                    <form action="/analyze" method="POST" class="analyzer-form" id="mainAnalyzerForm">
+                        <div class="input-group">
+                            <div class="input-header">
+                                <label for="passwordInput">Secret Key Plaintext Input</label>
+                                <span class="input-status font-mono" id="inputStatusText">AWAITING_INPUT</span>
+                            </div>
+                            <div class="password-wrapper">
+                                <span class="input-lock-icon"><i class="fa-solid fa-lock"></i></span>
+                                <input 
+                                    type="password" 
+                                    id="passwordInput" 
+                                    name="password" 
+                                    placeholder="Enter password or click Generate below..." 
+                                    autocomplete="off" 
+                                    required
+                                    maxlength="128"
+                                    class="cyber-input with-icon"
+                                >
+                                <button type="button" class="visibility-toggle" id="toggleVisibility" aria-label="Toggle password visibility">
+                                    <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                                    <i id="eyeOffIcon" class="fa-solid fa-eye-slash hidden"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Quick Action Row -->
+                            <div class="quick-action-row">
+                                <button type="button" id="quickGenerateBtn" class="quick-generate-btn">
+                                    <i class="fa-solid fa-bolt"></i> Generate Strong Password
+                                </button>
+                                <span class="privacy-badge-pill">
+                                    <i class="fa-solid fa-lock"></i> 100% Client-Side Sandbox
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Live Strength Meter (5 Tiers) -->
+                        <div class="live-strength-meter-container">
+                            <div class="meter-labels-row">
+                                <span class="meter-heading">Real-Time Resiliency</span>
+                                <span class="meter-rating-label" id="meterRatingLabel">STANDBY</span>
+                            </div>
+                            <div class="meter-bar-wrapper">
+                                <div class="meter-bar-fill" id="meterBarFill"></div>
+                            </div>
+                            <div class="meter-steps font-mono">
+                                <span id="stepVeryWeak">VERY WEAK</span>
+                                <span id="stepWeak">WEAK</span>
+                                <span id="stepFair">FAIR</span>
+                                <span id="stepStrong">STRONG</span>
+                                <span id="stepVeryStrong">VERY STRONG</span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="cyber-btn btn-primary" id="analyzeSubmit">
+                                <span class="btn-shine"></span>
+                                <i class="fa-solid fa-file-shield btn-icon"></i>
+                                View Full Cryptographic Security Report
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Real-Time Interactive Diagnostics Panel (Populates as you type or generate) -->
+                    <div id="liveDiagnostics" class="live-diagnostics hidden animate-fade-in">
+                        <hr class="cyber-divider">
+                        <h3 class="subsection-title"><i class="fa-solid fa-terminal text-blue"></i> Real-Time Telemetry & Security Diagnostics</h3>
+                        
+                        <!-- Top Summary: Score Gauge & Health -->
+                        <div class="live-grid">
+                            <!-- Circular Gauge Column -->
+                            <div class="gauge-column">
+                                <div class="gauge-wrapper">
+                                    <svg class="progress-ring" width="120" height="120">
+                                        <circle class="progress-ring-bg" stroke="#111827" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                        <circle id="liveGauge" class="progress-ring-circle" stroke="var(--accent-green)" stroke-width="8" stroke-dasharray="314.16" stroke-dashoffset="314.16" stroke-linecap="round" fill="transparent" r="50" cx="60" cy="60"/>
+                                    </svg>
+                                    <div class="gauge-labels">
+                                        <span id="liveScoreValue" class="score-number text-green">0</span>
+                                        <span class="score-label">SCORE %</span>
+                                    </div>
+                                </div>
+                                <div class="live-status-badge">
+                                    <span id="liveStrengthLabel" class="live-badge strength-weak">Weak</span>
+                                </div>
+                            </div>
+
+                            <!-- Metrics Quick Column -->
+                            <div class="metrics-column">
+                                <div class="metric-row">
+                                    <span class="metric-name"><i class="fa-solid fa-wave-square text-purple icon-inline"></i> Shannon Entropy</span>
+                                    <span id="liveEntropyValue" class="metric-value font-mono">0.00 bits</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-name"><i class="fa-solid fa-hourglass-half text-blue icon-inline"></i> Estimated Crack Time</span>
+                                    <span id="liveCrackTimeValue" class="metric-value text-blue">Instant</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-name"><i class="fa-solid fa-ruler-horizontal text-muted icon-inline"></i> Length Evaluation</span>
+                                    <span id="liveLenCheck" class="metric-indicator text-rose-500">
+                                        <span class="dot bg-rose-500"></span>0 characters
+                                    </span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-name"><i class="fa-solid fa-cubes text-muted icon-inline"></i> Active Character Sets</span>
+                                    <div id="liveCharSets" class="charset-badges font-mono">
+                                        <span class="mini-badge" id="setLower">a-z</span>
+                                        <span class="mini-badge" id="setUpper">A-Z</span>
+                                        <span class="mini-badge" id="setDigits">0-9</span>
+                                        <span class="mini-badge" id="setSymbols">#$&</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Educational Disclaimer Callout -->
+                        <div class="edu-disclaimer-card">
+                            <i class="fa-solid fa-circle-info text-blue"></i>
+                            <strong>Security-Strength Indicator:</strong> The 0–100% score is a relative mathematical strength metric derived from Shannon information entropy and NIST SP 800-63B standards. It serves as an educational resilience score rather than an absolute guarantee of protection.
+                        </div>
+
+                        <!-- 2. PASSWORD DETAILS: Character Metrics Grid -->
+                        <div class="security-analysis-section">
+                            <h4 class="analysis-section-title">
+                                <i class="fa-solid fa-chart-pie text-blue"></i> Password Details & Composition
+                            </h4>
+                            <div class="character-details-grid">
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Total Length</span>
+                                        <i class="fa-solid fa-ruler-horizontal text-blue"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailTotalChars">0</div>
+                                    <div class="detail-stat-sub" id="detailTotalCharsSub">Characters</div>
+                                </div>
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Uppercase</span>
+                                        <i class="fa-solid fa-font text-purple"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailUpperChars">0</div>
+                                    <div class="detail-stat-sub">A &ndash; Z</div>
+                                </div>
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Lowercase</span>
+                                        <i class="fa-solid fa-font text-blue"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailLowerChars">0</div>
+                                    <div class="detail-stat-sub">a &ndash; z</div>
+                                </div>
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Numbers</span>
+                                        <i class="fa-solid fa-hashtag text-amber-400"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailDigitChars">0</div>
+                                    <div class="detail-stat-sub">0 &ndash; 9</div>
+                                </div>
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Special Symbols</span>
+                                        <i class="fa-solid fa-circle-dollar-to-slot text-green"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailSymbolChars">0</div>
+                                    <div class="detail-stat-sub">!@#$%^&*</div>
+                                </div>
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Unique Chars</span>
+                                        <i class="fa-solid fa-fingerprint text-sky-400"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailUniqueChars">0</div>
+                                    <div class="detail-stat-sub" id="detailUniqueRatio">0% Diversity</div>
+                                </div>
+                                <div class="detail-stat-card">
+                                    <div class="detail-stat-header">
+                                        <span>Entropy</span>
+                                        <i class="fa-solid fa-wave-square text-purple"></i>
+                                    </div>
+                                    <div class="detail-stat-value" id="detailEntropy">0.00</div>
+                                    <div class="detail-stat-sub" id="detailEntropyLevel">0.00 bits</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. SECURITY ANALYSIS: Pattern Detections & Explanations -->
+                        <div class="security-analysis-section">
+                            <h4 class="analysis-section-title">
+                                <i class="fa-solid fa-shield-halved text-blue"></i> Security Analysis & Pattern Vulnerabilities
+                            </h4>
+                            <div class="security-checks-grid">
+                                <!-- 1. Length Check -->
+                                <div class="check-item-card" id="checkCardLength">
+                                    <div class="check-item-header">
+                                        <div class="check-title-group">
+                                            <i class="fa-solid fa-ruler-combined text-blue" id="checkIconLength"></i>
+                                            <span>Password Length</span>
+                                        </div>
+                                        <span class="check-status-badge badge-pass" id="checkBadgeLength">PASS</span>
+                                    </div>
+                                    <p class="check-item-desc" id="checkDescLength">
+                                        Evaluates length against standard cybersecurity baselines (12–16+ characters recommended).
+                                    </p>
+                                </div>
+
+                                <!-- 2. Repeated Characters -->
+                                <div class="check-item-card" id="checkCardRepeated">
+                                    <div class="check-item-header">
+                                        <div class="check-title-group">
+                                            <i class="fa-solid fa-clone text-blue" id="checkIconRepeated"></i>
+                                            <span>Repeated Characters</span>
+                                        </div>
+                                        <span class="check-status-badge badge-pass" id="checkBadgeRepeated">PASS</span>
+                                    </div>
+                                    <p class="check-item-desc" id="checkDescRepeated">
+                                        Detects 3+ consecutive duplicate characters (e.g., 'aaa') or repeating chunk patterns.
+                                    </p>
+                                </div>
+
+                                <!-- 3. Sequential Patterns -->
+                                <div class="check-item-card" id="checkCardSequential">
+                                    <div class="check-item-header">
+                                        <div class="check-title-group">
+                                            <i class="fa-solid fa-arrow-down-1-9 text-blue" id="checkIconSequential"></i>
+                                            <span>Sequential Patterns</span>
+                                        </div>
+                                        <span class="check-status-badge badge-pass" id="checkBadgeSequential">PASS</span>
+                                    </div>
+                                    <p class="check-item-desc" id="checkDescSequential">
+                                        Identifies sequential numeric or alphabetic runs (such as '123' or 'abc').
+                                    </p>
+                                </div>
+
+                                <!-- 4. Common Words & Passwords -->
+                                <div class="check-item-card" id="checkCardCommon">
+                                    <div class="check-item-header">
+                                        <div class="check-title-group">
+                                            <i class="fa-solid fa-book-skull text-blue" id="checkIconCommon"></i>
+                                            <span>Common Passwords & Words</span>
+                                        </div>
+                                        <span class="check-status-badge badge-pass" id="checkBadgeCommon">PASS</span>
+                                    </div>
+                                    <p class="check-item-desc" id="checkDescCommon">
+                                        Scans against leaked breach wordlists and common dictionary words (e.g. 'password', 'admin').
+                                    </p>
+                                </div>
+
+                                <!-- 5. Obvious Dates & Keyboard Walks -->
+                                <div class="check-item-card" id="checkCardDates">
+                                    <div class="check-item-header">
+                                        <div class="check-title-group">
+                                            <i class="fa-solid fa-calendar-days text-blue" id="checkIconDates"></i>
+                                            <span>Dates & Keyboard Patterns</span>
+                                        </div>
+                                        <span class="check-status-badge badge-pass" id="checkBadgeDates">PASS</span>
+                                    </div>
+                                    <p class="check-item-desc" id="checkDescDates">
+                                        Detects calendar years (e.g. '1998', '2024'), dates, and keyboard walks ('qwerty', 'asdf').
+                                    </p>
+                                </div>
+
+                                <!-- 6. Character Diversity -->
+                                <div class="check-item-card" id="checkCardDiversity">
+                                    <div class="check-item-header">
+                                        <div class="check-title-group">
+                                            <i class="fa-solid fa-shapes text-blue" id="checkIconDiversity"></i>
+                                            <span>Character Diversity</span>
+                                        </div>
+                                        <span class="check-status-badge badge-pass" id="checkBadgeDiversity">PASS</span>
+                                    </div>
+                                    <p class="check-item-desc" id="checkDescDiversity">
+                                        Analyzes unique character diversity to ensure high cryptographic unpredictability.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. CRACK-TIME ESTIMATES: Multi-Scenario Attacks -->
+                        <div class="scenarios-container">
+                            <div class="scenario-header-row">
+                                <h4 class="analysis-section-title" style="margin-bottom: 0;">
+                                    <i class="fa-solid fa-hourglass-half text-blue"></i> Crack-Time Estimates Across Attack Scenarios
+                                </h4>
+                                <span class="estimate-badge"><i class="fa-solid fa-calculator"></i> EDUCATIONAL ESTIMATE</span>
+                            </div>
+                            <div class="scenarios-grid">
+                                <!-- Scenario 1: Online Throttled -->
+                                <div class="scenario-card">
+                                    <div class="scenario-card-top">
+                                        <div class="scenario-title-area">
+                                            <span class="scenario-name">Online Throttled Web Login</span>
+                                            <span class="scenario-rate">100 attempts/sec (Rate-Limited)</span>
+                                        </div>
+                                        <div class="scenario-icon-wrap"><i class="fa-solid fa-globe"></i></div>
+                                    </div>
+                                    <div class="scenario-time-display">
+                                        <span class="scenario-time-val text-blue" id="timeOnlineThrottled">Instant</span>
+                                        <span class="scenario-desc-note">Protected by CAPTCHAs & lockouts.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Scenario 2: Online Fast API -->
+                                <div class="scenario-card">
+                                    <div class="scenario-card-top">
+                                        <div class="scenario-title-area">
+                                            <span class="scenario-name">Online Fast API</span>
+                                            <span class="scenario-rate">10,000 attempts/sec</span>
+                                        </div>
+                                        <div class="scenario-icon-wrap"><i class="fa-solid fa-bolt"></i></div>
+                                    </div>
+                                    <div class="scenario-time-display">
+                                        <span class="scenario-time-val text-purple" id="timeOnlineFast">Instant</span>
+                                        <span class="scenario-desc-note">Automated API attack without throttling.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Scenario 3: Offline Single GPU Rig -->
+                                <div class="scenario-card">
+                                    <div class="scenario-card-top">
+                                        <div class="scenario-title-area">
+                                            <span class="scenario-name">Offline Fast Hash (Single GPU)</span>
+                                            <span class="scenario-rate">100 Billion/sec ($10^{11}$ H/s)</span>
+                                        </div>
+                                        <div class="scenario-icon-wrap"><i class="fa-solid fa-microchip"></i></div>
+                                    </div>
+                                    <div class="scenario-time-display">
+                                        <span class="scenario-time-val text-emerald-400" id="timeOfflineGpu">Instant</span>
+                                        <span class="scenario-desc-note">RTX 4090 GPU cracking fast unsalted hashes.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Scenario 4: Offline Massive Cluster -->
+                                <div class="scenario-card">
+                                    <div class="scenario-card-top">
+                                        <div class="scenario-title-area">
+                                            <span class="scenario-name">Offline Distributed Cluster</span>
+                                            <span class="scenario-rate">10 Trillion/sec ($10^{13}$ H/s)</span>
+                                        </div>
+                                        <div class="scenario-icon-wrap"><i class="fa-solid fa-server"></i></div>
+                                    </div>
+                                    <div class="scenario-time-display">
+                                        <span class="scenario-time-val text-sky-400" id="timeOfflineCluster">Instant</span>
+                                        <span class="scenario-desc-note">Nation-state or cloud farm supercomputer.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Scenario 5: Slow Memory-Hard Hash -->
+                                <div class="scenario-card">
+                                    <div class="scenario-card-top">
+                                        <div class="scenario-title-area">
+                                            <span class="scenario-name">Slow Memory-Hard Hash</span>
+                                            <span class="scenario-rate">5,000 hashes/sec (Argon2id)</span>
+                                        </div>
+                                        <div class="scenario-icon-wrap"><i class="fa-solid fa-lock"></i></div>
+                                    </div>
+                                    <div class="scenario-time-display">
+                                        <span class="scenario-time-val text-green" id="timeSlowHash">Instant</span>
+                                        <span class="scenario-desc-note">Modern memory-hardened password storage.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="edu-disclaimer-card" style="margin-top: 0.85rem;">
+                                <i class="fa-solid fa-info-circle text-blue"></i>
+                                <strong>Methodology Note:</strong> Cracking times are theoretical approximations based on search space combinations ($R^L$) and hardware capacity. Real-world cracking time depends on the hashing algorithm (fast MD5 vs. Argon2id), salt implementation, rate limits, and custom dictionary mask rules.
+                            </div>
+                        </div>
+
+                        <!-- 5. RECOMMENDATIONS FOR IMPROVEMENT -->
+                        <div class="findings-group" style="margin-top: 1.5rem;">
+                            <h4 class="findings-group-title text-sky-400"><i class="fa-solid fa-shield-virus"></i> Actionable Security Recommendations</h4>
+                            <div id="liveSuggestions" class="checklist-items">
+                                <!-- Dynamically populated recommendations -->
+                            </div>
+                        </div>
+
+                        <!-- Warnings & Suggestions -->
+                        <div id="liveAlerts" class="live-alerts" style="margin-top: 1.25rem;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Side: Standalone Secure Password Generator Module -->
+            <section class="card glass-card span-sm animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-shield-halved card-title-icon text-green animate-glow"></i>
+                        <h2>Defense Key Generator</h2>
+                    </div>
+                    <span class="sec-label">MODULE_02</span>
+                </div>
+                
+                <div class="card-body">
+                    <p class="card-description text-secondary">
+                        Generate high-entropy credentials locally. This module leverages a secure cryptographic RNG engine to defend against pattern-prediction algorithms.
+                    </p>
+
+                    <!-- Premium Secure Text Box Display -->
+                    <div class="generator-display-box-premium">
+                        <div class="secure-input-wrapper">
+                            <span class="input-lock-icon"><i class="fa-solid fa-shield-halved text-green"></i></span>
+                            <input 
+                                type="password" 
+                                id="generatorOutput" 
+                                class="cyber-input font-mono" 
+                                value="" 
+                                placeholder="Awaiting Secure Generation..." 
+                                readonly
+                                aria-label="Generated Secure Password"
+                            >
+                            <button type="button" class="visibility-toggle-btn" id="toggleGenVisibility" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <i id="genEyeIcon" class="fa-solid fa-eye text-green"></i>
+                                <i id="genEyeOffIcon" class="fa-solid fa-eye-slash text-green hidden"></i>
+                            </button>
+                        </div>
+                        <div class="display-action-row">
+                            <button type="button" class="action-icon-btn tooltip" id="copyPasswordBtn" aria-label="Copy Generated Password" disabled>
+                                <i class="fa-solid fa-copy"></i>
+                                <span class="tooltiptext" id="copyTooltip">Copy Password</span>
+                            </button>
+                            <button type="button" class="action-icon-btn tooltip" id="regenerateBtn" aria-label="Regenerate Password">
+                                <i class="fa-solid fa-arrows-rotate" id="regenerateIcon"></i>
+                                <span class="tooltiptext">Regenerate</span>
+                            </button>
+                            <button type="button" class="action-icon-btn tooltip text-rose-400" id="clearPasswordBtn" aria-label="Clear Field" disabled>
+                                <i class="fa-solid fa-trash-can"></i>
+                                <span class="tooltiptext">Clear Field</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Generator Specs Form -->
+                    <div class="generator-controls">
+                        <div class="slider-group">
+                            <div class="slider-labels">
+                                <label for="lengthSlider">Credential Length</label>
+                                <span class="slider-val font-mono" id="lengthDisplay">16</span>
+                            </div>
+                            <!-- Snapping slider index: 0=8, 1=12, 2=16, 3=20, 4=24, 5=32, 6=48, 7=64 -->
+                            <input type="range" id="lengthSlider" min="0" max="7" value="2" class="cyber-slider" aria-label="Credential Length Selector">
+                            <div class="slider-ticks font-mono">
+                                <span>8</span>
+                                <span>12</span>
+                                <span>16</span>
+                                <span>20</span>
+                                <span>24</span>
+                                <span>32</span>
+                                <span>48</span>
+                                <span>64</span>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-grid premium-checkbox-grid">
+                            <label class="cyber-checkbox-label">
+                                <input type="checkbox" id="genUpper" checked class="cyber-checkbox">
+                                <span class="custom-checkbox"></span>
+                                Uppercase (A–Z)
+                            </label>
+                            <label class="cyber-checkbox-label">
+                                <input type="checkbox" id="genLower" checked class="cyber-checkbox">
+                                <span class="custom-checkbox"></span>
+                                Lowercase (a–z)
+                            </label>
+                            <label class="cyber-checkbox-label">
+                                <input type="checkbox" id="genDigits" checked class="cyber-checkbox">
+                                <span class="custom-checkbox"></span>
+                                Numbers (0–9)
+                            </label>
+                            <label class="cyber-checkbox-label">
+                                <input type="checkbox" id="genSymbols" checked class="cyber-checkbox">
+                                <span class="custom-checkbox"></span>
+                                Special Symbols
+                            </label>
+                            <label class="cyber-checkbox-label span-2-col">
+                                <input type="checkbox" id="genExcludeSimilar" class="cyber-checkbox">
+                                <span class="custom-checkbox"></span>
+                                Exclude Similar (O, 0, I, l, 1)
+                            </label>
+                            <label class="cyber-checkbox-label span-2-col">
+                                <input type="checkbox" id="genExcludeAmbiguous" class="cyber-checkbox">
+                                <span class="custom-checkbox"></span>
+                                Exclude Ambiguous ({}[]()/...)
+                            </label>
+                        </div>
+
+                        <button type="button" class="cyber-btn btn-secondary w-full" id="generateBtn">
+                            <i class="fa-solid fa-arrows-rotate btn-icon"></i>
+                            Generate Defense Key
+                        </button>
+                    </div>
+
+                    <!-- Live Cryptographic Diagnostics Feed -->
+                    <div id="genLiveDiagnostics" class="gen-live-diagnostics hidden animate-fade-in">
+                        <div class="subsection-divider"></div>
+                        <h3 class="subsection-title"><i class="fa-solid fa-microchip text-green"></i> Live Cryptographic Assessment</h3>
+                        
+                        <div class="gen-live-grid">
+                            <!-- Circular Gauge Column -->
+                            <div class="gauge-column">
+                                <div class="gauge-wrapper small-gauge">
+                                    <svg class="progress-ring" width="100" height="100">
+                                        <circle class="progress-ring-bg" stroke="#111827" stroke-width="6" fill="transparent" r="42" cx="50" cy="50"/>
+                                        <circle id="genLiveGauge" class="progress-ring-circle" stroke="var(--accent-green)" stroke-width="6" stroke-dasharray="263.89" stroke-dashoffset="263.89" stroke-linecap="round" fill="transparent" r="42" cx="50" cy="50"/>
+                                    </svg>
+                                    <div class="gauge-labels">
+                                        <span id="genLiveScoreValue" class="score-number sm text-green">0</span>
+                                        <span class="score-label xsm">SCORE</span>
+                                    </div>
+                                </div>
+                                <div class="live-status-badge">
+                                    <span id="genLiveStrengthLabel" class="live-badge strength-weak">Weak</span>
+                                </div>
+                            </div>
+
+                            <!-- Metrics List Column -->
+                            <div class="metrics-column font-sans text-xs">
+                                <div class="metric-row-compact">
+                                    <span class="metric-name-compact"><i class="fa-solid fa-wave-square text-purple icon-inline"></i> Shannon Entropy</span>
+                                    <span id="genLiveEntropyValue" class="metric-value-compact font-mono">0.00 bits</span>
+                                </div>
+                                <div class="metric-row-compact">
+                                    <span class="metric-name-compact"><i class="fa-solid fa-hourglass-half text-blue icon-inline"></i> Est. Crack Time</span>
+                                    <span id="genLiveCrackTimeValue" class="metric-value-compact text-blue">Instant</span>
+                                </div>
+                                <div class="metric-row-compact">
+                                    <span class="metric-name-compact"><i class="fa-solid fa-bars text-muted icon-inline"></i> Entropy Quality</span>
+                                    <span id="genLiveQualityValue" class="metric-value-compact text-muted">Awaiting...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recommendations list -->
+                        <div class="gen-recommendations-box">
+                            <h4 class="rec-title"><i class="fa-solid fa-shield-virus text-blue"></i> Cryptographic Recommendations</h4>
+                            <ul id="genLiveRecommendations" class="gen-rec-list font-sans">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Cybersecurity Security & Intel Panel -->
+                    <div class="generator-intel-tabs">
+                        <div class="intel-tabs-header">
+                            <button type="button" class="intel-tab-btn active" data-tab="intel-length">Length</button>
+                            <button type="button" class="intel-tab-btn" data-tab="intel-random">Random</button>
+                            <button type="button" class="intel-tab-btn" data-tab="intel-entropy">Entropy</button>
+                            <button type="button" class="intel-tab-btn" data-tab="intel-managers">Vaults</button>
+                        </div>
+                        
+                        <div class="intel-tab-content">
+                            <!-- Length Tab -->
+                            <div class="intel-tab-panel active" id="intel-length">
+                                <h4><i class="fa-solid fa-weight-hanging text-green icon-inline"></i> Why Password Length Matters</h4>
+                                <p>In password security, <strong>length is king</strong>. Adding characters increases brute-force search space exponentially. A 16-character password has 1.3 trillion times more space than an 8-character password. Even if a password contains only letters and numbers, length provides unparalleled resistance against modern parallel distributed GPU attacks.</p>
+                            </div>
+                            
+                            <!-- Random Tab -->
+                            <div class="intel-tab-panel" id="intel-random">
+                                <h4><i class="fa-solid fa-shield-virus text-blue icon-inline"></i> CSPRNG vs Human Logic</h4>
+                                <p>Humans are notoriously bad at creating random passwords. We use dictionary words, sequential characters (<code>123</code>, <code>abc</code>), or keyboard patterns (<code>qwerty</code>). Attackers exploit these predictable structures. Secure password generators use cryptographically strong pseudorandom generation (CSPRNG) which removes predictable cognitive patterns and distributes characters completely uniformly.</p>
+                            </div>
+                            
+                            <!-- Entropy Tab -->
+                            <div class="intel-tab-panel" id="intel-entropy">
+                                <h4><i class="fa-solid fa-brain text-purple icon-inline"></i> Shannon Information Entropy</h4>
+                                <p><strong>Entropy</strong> measures the mathematical uncertainty of a password. Expressed in bits (log2), entropy represents how many guesses an attacker must make. Standard guidelines require:
+                                    <br>&bull; <strong>&gt;60 bits</strong> for personal safety
+                                    <br>&bull; <strong>&gt;80 bits</strong> for administrator access
+                                    <br>&bull; <strong>&gt;100 bits</strong> for supreme protection
+                                </p>
+                            </div>
+                            
+                            <!-- Managers Tab -->
+                            <div class="intel-tab-panel" id="intel-managers">
+                                <h4><i class="fa-solid fa-circle-nodes text-green icon-inline"></i> Password Managers</h4>
+                                <p>Because strong, high-entropy passwords are impossible to memorize, cybersecurity authorities (like NIST and OWASP) recommend a professional <strong>Password Manager</strong> (e.g. Bitwarden, 1Password). These vaults securely encrypt your random credentials locally and paste them on demand, preventing password reuse attacks entirely.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- Academic Module: Cryptographic Hashing Standards -->
+        <section class="card glass-card span-full animate-slide-up" style="animation-delay: 0.3s; margin-top: 2.5rem;">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <i class="fa-solid fa-fingerprint card-title-icon text-purple"></i>
+                    <h2>One-Way Cryptographic Integrity Digests</h2>
+                </div>
+                <span class="sec-label">MODULE_03</span>
+            </div>
+
+            <div class="card-body">
+                <p class="card-description text-secondary">
+                    Digesting converts passwords into un-reversible hashes. Enter characters above to calculate dynamic standard hex digests in real-time.
+                </p>
+
+                <div class="hashing-grid">
+                    <!-- Column 1: Academic explanation -->
+                    <div class="hashing-explanation-card">
+                        <h3><i class="fa-solid fa-circle-question text-purple"></i> Cryptographic Hashes</h3>
+                        <p>
+                            A secure hash represents the input data as a unique hex string. Secure databases do not store actual text; instead, they salt and digest credentials.
+                        </p>
+                        <p>
+                            Algorithms like <strong>SHA-256</strong> are heavily used in TLS certificates, ledger networks, and signatures, while legacy digests like <strong>MD5</strong> are broken and insecure for credentials.
+                        </p>
+                        <div class="edu-callout">
+                            <strong><i class="fa-solid fa-graduation-cap"></i> Note:</strong> Fast digests (MD5, SHA-256) are prone to high-speed hardware dictionary rigs. CyberShield simulates an attacker trying to reverse these digests.
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Active hash blocks -->
+                    <div class="hashing-digests-card">
+                        <div class="hash-block">
+                            <div class="hash-header">
+                                <span class="hash-tag md5">MD5</span>
+                                <span class="hash-status text-rose-500"><i class="fa-solid fa-circle-xmark"></i> BROKEN</span>
+                            </div>
+                            <div class="hash-output font-mono" id="hashMD5">
+                                [Awaiting password analysis]
+                            </div>
+                        </div>
+
+                        <div class="hash-block">
+                            <div class="hash-header">
+                                <span class="hash-tag sha1">SHA-1</span>
+                                <span class="hash-status text-amber-500"><i class="fa-solid fa-triangle-exclamation"></i> DEPRECATED</span>
+                            </div>
+                            <div class="hash-output font-mono" id="hashSHA1">
+                                [Awaiting password analysis]
+                            </div>
+                        </div>
+
+                        <div class="hash-block">
+                            <div class="hash-header">
+                                <span class="hash-tag sha256">SHA-256</span>
+                                <span class="hash-status text-emerald-500"><i class="fa-solid fa-circle-check"></i> SECURE STANDARD</span>
+                            </div>
+                            <div class="hash-output font-mono" id="hashSHA256">
+                                [Awaiting password analysis]
+                            </div>
+                        </div>
+
+                        <div class="hash-block">
+                            <div class="hash-header">
+                                <span class="hash-tag sha512">SHA-512</span>
+                                <span class="hash-status text-emerald-500"><i class="fa-solid fa-circle-check"></i> MILITARY SECURE</span>
+                            </div>
+                            <div class="hash-output font-mono" id="hashSHA512">
+                                [Awaiting password analysis]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLIENT-SIDE DEEP AUDIT SECTION (Visible on static mode analyze) -->
+        <div id="detailedAuditSection" class="hidden animate-fade-in" style="margin-top: 3rem;">
+            <div class="section-divider" style="margin: 4rem 0 2rem 0; text-align: center;">
+                <span class="divider-text" style="font-family: 'Orbitron', sans-serif; letter-spacing: 0.2em; font-size: 1.1rem; color: #00c8ff;">
+                    <i class="fa-solid fa-folder-open text-blue"></i> DYNAMIC CRYPTOGRAPHIC AUDIT REPORT
+                </span>
+                <div style="height: 1px; background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.3), transparent); margin-top: 0.5rem; width: 100%;"></div>
+            </div>
+
+            <!-- Target Summary Card -->
+            <section class="card glass-card top-hero-card" style="margin-bottom: 2rem;">
+                <div class="hero-flex">
+                    <div class="hero-left">
+                        <span class="meta-label">TARGET PASSWORD FOR INSPECTION</span>
+                        <div class="analyzed-password-box">
+                            <span class="input-lock-icon"><i class="fa-solid fa-key text-blue"></i></span>
+                            <span id="localAnalyzedPassword" class="obscured-password font-mono">••••••••</span>
+                            <button type="button" class="visibility-toggle" id="toggleLocalResultVisibility" aria-label="Toggle password visibility">
+                                <i id="localEyeIcon" class="fa-solid fa-eye"></i>
+                                <i id="localEyeOffIcon" class="fa-solid fa-eye-slash hidden"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-right">
+                        <span class="meta-label">DEFENSE RATING VERDICT</span>
+                        <div class="rating-badge-container">
+                            <span id="localVerdictBadge" class="badge bg-rose-500/10 text-rose-400 border border-rose-500/20"><i class="fa-solid fa-shield-check"></i> Weak</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Metrics Grid -->
+            <div class="results-grid">
+                
+                <!-- 1. Circular Security Meter & Score Explanation -->
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-circle-notch text-blue card-title-icon"></i>
+                            <h3>Overall Score Meter</h3>
+                        </div>
+                        <span class="sec-label">GAUGE_01</span>
+                    </div>
+                    <div class="card-body centered-flex">
+                        <div class="gauge-wrapper large">
+                            <svg class="progress-ring" width="180" height="180">
+                                <!-- Background track -->
+                                <circle class="progress-ring-bg" stroke="#111827" stroke-width="12" fill="transparent" r="75" cx="90" cy="90"/>
+                                <!-- Active gauge -->
+                                <circle 
+                                    id="localResultGauge" 
+                                    class="progress-ring-circle" 
+                                    stroke="#f43f5e" 
+                                    stroke-width="12" 
+                                    stroke-dasharray="471.24" 
+                                    stroke-dashoffset="471.24" 
+                                    stroke-linecap="round" 
+                                    fill="transparent" 
+                                    r="75" 
+                                    cx="90" 
+                                    cy="90"
+                                />
+                            </svg>
+                            <div class="gauge-labels">
+                                <span id="localScoreNumber" class="score-number large text-rose-500">0</span>
+                                <span class="score-label">OVERALL DEFENSE</span>
+                            </div>
+                        </div>
+                        
+                        <div class="score-summary text-center" style="width: 100%; margin-top: 1.5rem;">
+                            <h4 id="localScoreGrade" class="text-rose-500"><i class="fa-solid fa-circle-check"></i> Security Grade: Weak</h4>
+                            <p id="localScoreExplanation" class="score-explanation text-secondary" style="font-size: 0.9rem; line-height: 1.4;">
+                                This key is extremely vulnerable. It is highly advised to immediately replace it with a strong alternative.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Theoretical Information Entropy Card -->
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-chart-line text-purple card-title-icon"></i>
+                            <h3>Shannon Entropy Analysis</h3>
+                        </div>
+                        <span class="sec-label">METRIC_02</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="entropy-metric-box">
+                            <div id="localEntropyVal" class="entropy-score font-mono text-purple">0.00 <span class="unit">bits</span></div>
+                            <span id="localEntropyLevel" class="entropy-badge"><i class="fa-solid fa-brain"></i> None</span>
+                        </div>
+
+                        <p id="localEntropyDesc" class="section-para text-secondary" style="font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.5rem;">
+                            No password provided to analyze.
+                        </p>
+
+                        <div class="formula-box">
+                            <span class="formula-label font-mono"><i class="fa-solid fa-square-root-variable"></i> ENTROPY FORMULA</span>
+                            <div class="formula-content font-mono">
+                                H = L &times; log<sub>2</sub>(R)
+                            </div>
+                            <div class="formula-variables font-mono" id="localFormulaVars">
+                                <span>L = Length (0)</span>
+                                <span>R = Charset Pool (1)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Estimated Crack Time -->
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-clock text-blue card-title-icon"></i>
+                            <h3>Attacker Brute-Force Time</h3>
+                        </div>
+                        <span class="sec-label">METRIC_03</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="crack-time-metric">
+                            <i class="fa-solid fa-gauge-high text-blue crack-time-icon-large"></i>
+                            <div id="localCrackTime" class="crack-val font-mono text-blue">Instant</div>
+                        </div>
+
+                        <p id="localCrackDesc" class="section-para text-secondary" style="font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.5rem;">
+                            An attacker with standard modern GPU cracking equipment (100 Billion guesses/sec) would crack this password instantaneously. This password is highly vulnerable.
+                        </p>
+
+                        <div class="edu-callout">
+                            <strong><i class="fa-solid fa-microchip"></i> Rig Baseline:</strong> Simulates a distributed cluster rig executing 100 Billion attempts per second ($10^{11}$ H/s). If the target storage employs cryptographic scaling delays (e.g. Argon2id or bcrypt), guess speeds are dramatically throttled.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-grid" style="margin-top: 2rem;">
+                
+                <!-- 4. Security Alerts & Recommendations -->
+                <div class="card glass-card span-double">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-clipboard-list text-blue card-title-icon"></i>
+                            <h3>Telemetry Findings & Remediation Checklist</h3>
+                        </div>
+                        <span class="sec-label">RECS_04</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="findings-group">
+                            <h4 id="localFindingsGroupTitle" class="findings-group-title text-rose-500"><i class="fa-solid fa-triangle-exclamation"></i> Security Threats Detected (0)</h4>
+                            <div id="localAlertsList" class="alerts-list">
+                                <!-- Dynamically populated alert items -->
+                            </div>
+                        </div>
+
+                        <div class="findings-group" style="margin-top: 1.5rem;">
+                            <h4 class="findings-group-title text-sky-400"><i class="fa-solid fa-shield-virus"></i> Security Enhancements Recommendations</h4>
+                            <div id="localSuggestionsList" class="checklist-items">
+                                <!-- Dynamically populated suggestions -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Password Checklist Matrix -->
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-table-cells text-green card-title-icon"></i>
+                            <h3>Composition Matrix</h3>
+                        </div>
+                        <span class="sec-label">MATRIX_05</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="matrix-list">
+                            <li class="matrix-row">
+                                <span><i class="fa-solid fa-ruler"></i> Character Length (<span id="localMatrixLength">0</span> Chars)</span>
+                                <span id="localBadgeLength" class="badge bg-rose-500/10 text-rose-400 border border-rose-500/20"><i class="fa-solid fa-xmark"></i> FAIL</span>
+                            </li>
+                            <li class="matrix-row">
+                                <span><i class="fa-solid fa-font"></i> Lowercase Letters (a-z)</span>
+                                <span id="localBadgeLower" class="badge bg-rose-500/10 text-rose-400 border border-rose-500/20"><i class="fa-solid fa-xmark"></i> NO</span>
+                            </li>
+                            <li class="matrix-row">
+                                <span><i class="fa-solid fa-font"></i> Uppercase Letters (A-Z)</span>
+                                <span id="localBadgeUpper" class="badge bg-rose-500/10 text-rose-400 border border-rose-500/20"><i class="fa-solid fa-xmark"></i> NO</span>
+                            </li>
+                            <li class="matrix-row">
+                                <span><i class="fa-solid fa-hashtag"></i> Numeric Digits (0-9)</span>
+                                <span id="localBadgeDigits" class="badge bg-rose-500/10 text-rose-400 border border-rose-500/20"><i class="fa-solid fa-xmark"></i> NO</span>
+                            </li>
+                            <li class="matrix-row">
+                                <span><i class="fa-solid fa-circle-dollar-to-slot"></i> Special Characters</span>
+                                <span id="localBadgeSymbols" class="badge bg-rose-500/10 text-rose-400 border border-rose-500/20"><i class="fa-solid fa-xmark"></i> NO</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Cryptographic Hashing Hex Digests -->
+            <section class="card glass-card" style="margin-top: 2.5rem;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-fingerprint card-title-icon text-purple"></i>
+                        <h2>Password Cryptographic Integrity Digests</h2>
+                    </div>
+                    <span class="sec-label">HASHES_06</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-description text-secondary" style="margin-bottom: 2rem;">
+                        Examine these one-way hashing conversions. Same characters consistently generate these exact hex outputs. Securing systems properly relies on these unique digital footprints.
+                    </p>
+
+                    <div class="digests-display-column">
+                        <!-- MD5 -->
+                        <div class="hash-result-block">
+                            <div class="hash-result-header">
+                                <div class="hash-name-group">
+                                    <span class="hash-pill md5">MD5</span>
+                                    <h4 class="hash-title font-mono">MD5 (Message Digest 5)</h4>
+                                </div>
+                                <span class="hash-badge-status text-rose-500 font-mono">LEGACY / BROKEN</span>
+                            </div>
+                            <div class="hash-result-code font-mono">
+                                <span class="code-text" id="localResultHashMD5">[Awaiting password]</span>
+                                <button type="button" class="hash-copy-btn tooltip" onclick="copyTextById('localResultHashMD5', this)">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span class="tooltiptext">Copy hash</span>
+                                </button>
+                            </div>
+                            <p class="hash-explanation-text text-secondary">
+                                MD5 produces a 128-bit digest. It is highly vulnerable to collision attacks, where two different inputs produce the exact same hash. It was cryptographically broken in 2004 and should NEVER be used to store passwords.
+                            </p>
+                        </div>
+
+                        <!-- SHA1 -->
+                        <div class="hash-result-block">
+                            <div class="hash-result-header">
+                                <div class="hash-name-group">
+                                    <span class="hash-pill sha1">SHA-1</span>
+                                    <h4 class="hash-title font-mono">SHA-1 (Secure Hash Algorithm 1)</h4>
+                                </div>
+                                <span class="hash-badge-status text-amber-500 font-mono">DEPRECATED</span>
+                            </div>
+                            <div class="hash-result-code font-mono">
+                                <span class="code-text" id="localResultHashSHA1">[Awaiting password]</span>
+                                <button type="button" class="hash-copy-btn tooltip" onclick="copyTextById('localResultHashSHA1', this)">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span class="tooltiptext">Copy hash</span>
+                                </button>
+                            </div>
+                            <p class="hash-explanation-text text-secondary">
+                                SHA-1 produces a 160-bit digest. It was designed by the NSA. Theoretical and practical collision attacks have been executed since 2017. Major browsers and security standards (like PCI-DSS) have deprecated SHA-1 for certificates and storage.
+                            </p>
+                        </div>
+
+                        <!-- SHA256 -->
+                        <div class="hash-result-block">
+                            <div class="hash-result-header">
+                                <div class="hash-name-group">
+                                    <span class="hash-pill sha256">SHA-256</span>
+                                    <h4 class="hash-title font-mono">SHA-256 (Secure Hash Algorithm 2 - 256 bits)</h4>
+                                </div>
+                                <span class="hash-badge-status text-emerald-500 font-mono">SECURE</span>
+                            </div>
+                            <div class="hash-result-code font-mono">
+                                <span class="code-text" id="localResultHashSHA256">[Awaiting password]</span>
+                                <button type="button" class="hash-copy-btn tooltip" onclick="copyTextById('localResultHashSHA256', this)">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span class="tooltiptext">Copy hash</span>
+                                </button>
+                            </div>
+                            <p class="hash-explanation-text text-secondary">
+                                SHA-256 is part of the SHA-2 family. It outputs a 256-bit digest and remains highly secure and widely used in blockchains, SSL certificates, and digital signatures. Note: For secure server password storage, SHA-256 should be salted and stretched (e.g., using PBKDF2) or replaced by memory-hard algorithms like Argon2.
+                            </p>
+                        </div>
+
+                        <!-- SHA512 -->
+                        <div class="hash-result-block">
+                            <div class="hash-result-header">
+                                <div class="hash-name-group">
+                                    <span class="hash-pill sha512">SHA-512</span>
+                                    <h4 class="hash-title font-mono">SHA-512 (Secure Hash Algorithm 2 - 512 bits)</h4>
+                                </div>
+                                <span class="hash-badge-status text-emerald-500 font-mono">SECURE</span>
+                            </div>
+                            <div class="hash-result-code font-mono">
+                                <span class="code-text" id="localResultHashSHA512">[Awaiting password]</span>
+                                <button type="button" class="hash-copy-btn tooltip" onclick="copyTextById('localResultHashSHA512', this)">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span class="tooltiptext">Copy hash</span>
+                                </button>
+                            </div>
+                            <p class="hash-explanation-text text-secondary">
+                                SHA-512 outputs a 512-bit digest. It is extremely robust and performs faster than SHA-256 on 64-bit architectures because it uses 64-bit arithmetic. It provides supreme security against standard brute-force, collision, and length-extension attacks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="app-footer text-center">
+        <div class="footer-container">
+            <p><i class="fa-solid fa-user-shield text-blue"></i> CyberShield Defensive Intelligence Sandbox &copy; 2026</p>
+            <p class="license-note">Secure Local Sandbox &bull; Built using Node.js, Express, TypeScript, Vanilla JS, & CSS3 Variables</p>
+            <p class="license-note text-muted">Licensed under MIT Open Source Initiative.</p>
+        </div>
+    </footer>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner-wrapper">
+            <div class="cyber-spinner"></div>
+            <p><i class="fa-solid fa-shield-halved animate-pulse"></i> INJECTING CRYPTO-AUDIT MATRIX...</p>
+        </div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+    <script>
+        // Dedicated helper function for copying hashes to clipboard (matches result.html)
+        function copyTextById(elementId, buttonElement) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            const tooltip = buttonElement.querySelector('.tooltiptext');
+            
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    if (tooltip) {
+                        tooltip.innerText = "Copied!";
+                        setTimeout(() => {
+                            tooltip.innerText = "Copy hash";
+                        }, 2000);
+                    }
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        }
+    </script>
+</body>
+</html>

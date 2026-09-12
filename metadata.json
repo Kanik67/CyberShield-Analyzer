@@ -1,0 +1,6 @@
+{
+  "name": "CyberShield - Password Security Analyzer",
+  "description": "A comprehensive password security analyzer with real-time feedback, entropy metrics, cracking time estimator, hashing generator, and cryptographically secure password generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

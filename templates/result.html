@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Audit Report – CyberShield</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Advanced Cyber Background & Particle Effects -->
+    <div class="cyber-grid" id="cyberGrid"></div>
+    <div class="particles-container" id="particlesContainer"></div>
+    <div class="ambient-glow bg-green" style="background: radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);"></div>
+    <div class="ambient-glow bg-blue" style="background: radial-gradient(circle at 90% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 50%);"></div>
+
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="/" class="back-link-btn" title="Back to Dashboard">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div class="logo-text">
+                    <h1>CYBER<span>SHIELD</span></h1>
+                    <span class="tagline">CRYPTOGRAPHIC AUDIT SHEET</span>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="status-indicator"></span>
+                <span class="status-label">REPORT_ID: #{{ report_id }}</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container animate-fade-in">
+        
+        <!-- Target Summary Card -->
+        <section class="card glass-card top-hero-card">
+            <div class="hero-flex">
+                <div class="hero-left">
+                    <span class="meta-label">TARGET PASSWORD FOR INSPECTION</span>
+                    <div class="analyzed-password-box">
+                        <span class="input-lock-icon"><i class="fa-solid fa-key text-blue"></i></span>
+                        <span id="analyzedPassword" class="obscured-password font-mono">{{ password }}</span>
+                        <button type="button" class="visibility-toggle" id="toggleResultVisibility" aria-label="Toggle password visibility">
+                            <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                            <i id="eyeOffIcon" class="fa-solid fa-eye-slash hidden"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <span class="meta-label">DEFENSE RATING VERDICT</span>
+                    <div class="rating-badge-container">
+                        <span class="badge {{ badge_class }}"><i class="fa-solid fa-shield-check"></i> {{ strength }}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Metrics Grid -->
+        <div class="results-grid">
+            
+            <!-- 1. Circular Security Meter & Score Explanation -->
+            <div class="card glass-card animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-circle-notch text-blue card-title-icon"></i>
+                        <h3>Overall Score Meter</h3>
+                    </div>
+                    <span class="sec-label">GAUGE_01</span>
+                </div>
+                <div class="card-body centered-flex">
+                    <div class="gauge-wrapper large">
+                        <svg class="progress-ring" width="180" height="180">
+                            <!-- Background track -->
+                            <circle class="progress-ring-bg" stroke="#111827" stroke-width="12" fill="transparent" r="75" cx="90" cy="90"/>
+                            <!-- Active gauge -->
+                            <circle 
+                                id="resultGauge" 
+                                class="progress-ring-circle animate-draw-ring" 
+                                stroke="{{ gauge_color }}" 
+                                stroke-width="12" 
+                                stroke-dasharray="471.24" 
+                                stroke-dashoffset="{{ 471.24 - (471.24 * score / 100) }}" 
+                                stroke-linecap="round" 
+                                fill="transparent" 
+                                r="75" 
+                                cx="90" 
+                                cy="90"
+                            />
+                        </svg>
+                        <div class="gauge-labels">
+                            <span class="score-number large {{ color_class }}">{{ score }}</span>
+                            <span class="score-label">OVERALL DEFENSE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="score-summary text-center">
+                        <h4 class="{{ color_class }}"><i class="fa-solid fa-circle-check"></i> Security Grade: {{ strength }}</h4>
+                        <p class="score-explanation text-secondary">
+                            {% if score < 25 %}
+                                This key is extremely vulnerable. It is highly advised to immediately replace it with a strong alternative.
+                            {% elif score < 45 %}
+                                Fair composition but vulnerable to fast custom rigs and high-speed GPU hashcat routines.
+                            {% elif score < 60 %}
+                                Moderate defense level. Meets entry-level standards but should include more character entropy and spacing.
+                            {% elif score < 80 %}
+                                Good strength. Satisfies typical secure portal policies and standard enterprise configurations.
+                            {% elif score < 95 %}
+                                Outstanding cryptographic strength. Confidently secures accounts from sophisticated targeted cluster attacks.
+                            {% else %}
+                                Supreme military-grade defensive value. Highly resilient against standard mathematical brute-forcing.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Theoretical Information Entropy Card -->
+            <div class="card glass-card animate-slide-up" style="animation-delay: 0.15s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-chart-line text-purple card-title-icon"></i>
+                        <h3>Shannon Entropy Analysis</h3>
+                    </div>
+                    <span class="sec-label">METRIC_02</span>
+                </div>
+                <div class="card-body">
+                    <div class="entropy-metric-box">
+                        <div class="entropy-score font-mono text-purple">{{ entropy }} <span class="unit">bits</span></div>
+                        <span class="entropy-badge"><i class="fa-solid fa-brain"></i> {{ entropy_level }}</span>
+                    </div>
+
+                    <p class="section-para text-secondary">
+                        {{ entropy_desc }}
+                    </p>
+
+                    <div class="formula-box">
+                        <span class="formula-label font-mono"><i class="fa-solid fa-square-root-variable"></i> ENTROPY FORMULA</span>
+                        <div class="formula-content font-mono">
+                            H = L &times; log<sub>2</sub>(R)
+                        </div>
+                        <div class="formula-variables font-mono">
+                            <span>L = Length ({{ metrics.length }})</span>
+                            <span>R = Charset Pool (
+                                {% set pool = 0 %}
+                                {% if metrics.has_lower %}{% set pool = pool + 26 %}{% endif %}
+                                {% if metrics.has_upper %}{% set pool = pool + 26 %}{% endif %}
+                                {% if metrics.has_digits %}{% set pool = pool + 10 %}{% endif %}
+                                {% if metrics.has_symbols %}{% set pool = pool + 33 %}{% endif %}
+                                {{ pool }}
+                            )</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Estimated Crack Time -->
+            <div class="card glass-card animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-clock text-blue card-title-icon"></i>
+                        <h3>Attacker Brute-Force Time</h3>
+                    </div>
+                    <span class="sec-label">METRIC_03</span>
+                </div>
+                <div class="card-body">
+                    <div class="crack-time-metric">
+                        <i class="fa-solid fa-gauge-high text-blue crack-time-icon-large"></i>
+                        <div class="crack-val font-mono text-blue">{{ crack_time }}</div>
+                    </div>
+
+                    <p class="section-para text-secondary">
+                        {{ crack_desc }}
+                    </p>
+
+                    <div class="edu-callout">
+                        <strong><i class="fa-solid fa-microchip"></i> Rig Baseline:</strong> Simulates a distributed cluster rig executing 100 Billion attempts per second ($10^{11}$ H/s). If the target storage employs cryptographic scaling delays (e.g. Argon2id or bcrypt), guess speeds are dramatically throttled.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-grid" style="margin-top: 2rem;">
+            
+            <!-- 4. Security Alerts & Recommendations -->
+            <div class="card glass-card span-double animate-slide-up" style="animation-delay: 0.25s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-clipboard-list text-blue card-title-icon"></i>
+                        <h3>Telemetry Findings & Remediation Checklist</h3>
+                    </div>
+                    <span class="sec-label">RECS_04</span>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Warnings checklist if any exist -->
+                    {% if warnings %}
+                    <div class="findings-group">
+                        <h4 class="findings-group-title text-rose-500"><i class="fa-solid fa-triangle-exclamation"></i> Security Threats Detected ({{ warnings|length }})</h4>
+                        <div class="alerts-list">
+                            {% for warning in warnings %}
+                            <div class="alert-item error">
+                                <i class="fa-solid fa-circle-exclamation alert-icon"></i>
+                                <span>{{ warning }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="alert-item success animate-pulse">
+                        <i class="fa-solid fa-circle-check alert-icon text-emerald-400"></i>
+                        <strong>COMPLEXITY VERIFICATION COMPLETED:</strong> No physical patterns, sequence progressions, or common leak dictionary listings found.
+                    </div>
+                    {% endif %}
+
+                    <div class="findings-group" style="margin-top: 1.5rem;">
+                        <h4 class="findings-group-title text-sky-400"><i class="fa-solid fa-shield-virus"></i> Security Enhancements Recommendations</h4>
+                        <div class="checklist-items">
+                            {% for sug in suggestions %}
+                            <div class="suggestion-item">
+                                <span class="bullet-indicator font-mono"><i class="fa-solid fa-circle-chevron-right text-blue"></i></span>
+                                <span class="suggestion-text">{{ sug }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Password Checklist Matrix -->
+            <div class="card glass-card animate-slide-up" style="animation-delay: 0.3s;">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i class="fa-solid fa-table-cells text-green card-title-icon"></i>
+                        <h3>Composition Matrix</h3>
+                    </div>
+                    <span class="sec-label">MATRIX_05</span>
+                </div>
+                <div class="card-body">
+                    <ul class="matrix-list">
+                        <li class="matrix-row">
+                            <span><i class="fa-solid fa-ruler"></i> Character Length ({{ metrics.length }} Chars)</span>
+                            <span class="badge {% if metrics.length >= 12 %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20{% else %}bg-rose-500/10 text-rose-400 border border-rose-500/20{% endif %}">
+                                {% if metrics.length >= 12 %}<i class="fa-solid fa-check"></i> PASS{% else %}<i class="fa-solid fa-xmark"></i> FAIL{% endif %}
+                            </span>
+                        </li>
+                        <li class="matrix-row">
+                            <span><i class="fa-solid fa-font"></i> Lowercase Letters (a-z)</span>
+                            <span class="badge {% if metrics.has_lower %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20{% else %}bg-rose-500/10 text-rose-400 border border-rose-500/20{% endif %}">
+                                {% if metrics.has_lower %}<i class="fa-solid fa-check"></i> YES{% else %}<i class="fa-solid fa-xmark"></i> NO{% endif %}
+                            </span>
+                        </li>
+                        <li class="matrix-row">
+                            <span><i class="fa-solid fa-font"></i> Uppercase Letters (A-Z)</span>
+                            <span class="badge {% if metrics.has_upper %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20{% else %}bg-rose-500/10 text-rose-400 border border-rose-500/20{% endif %}">
+                                {% if metrics.has_upper %}<i class="fa-solid fa-check"></i> YES{% else %}<i class="fa-solid fa-xmark"></i> NO{% endif %}
+                            </span>
+                        </li>
+                        <li class="matrix-row">
+                            <span><i class="fa-solid fa-hashtag"></i> Numeric Digits (0-9)</span>
+                            <span class="badge {% if metrics.has_digits %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20{% else %}bg-rose-500/10 text-rose-400 border border-rose-500/20{% endif %}">
+                                {% if metrics.has_digits %}<i class="fa-solid fa-check"></i> YES{% else %}<i class="fa-solid fa-xmark"></i> NO{% endif %}
+                            </span>
+                        </li>
+                        <li class="matrix-row">
+                            <span><i class="fa-solid fa-circle-dollar-to-slot"></i> Special Characters</span>
+                            <span class="badge {% if metrics.has_symbols %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20{% else %}bg-rose-500/10 text-rose-400 border border-rose-500/20{% endif %}">
+                                {% if metrics.has_symbols %}<i class="fa-solid fa-check"></i> YES{% else %}<i class="fa-solid fa-xmark"></i> NO{% endif %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Cryptographic Hashing Hex Digests -->
+        <section class="card glass-card animate-slide-up" style="margin-top: 2.5rem; animation-delay: 0.35s;">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <i class="fa-solid fa-fingerprint card-title-icon text-purple"></i>
+                    <h2>Password Cryptographic Integrity Digests</h2>
+                </div>
+                <span class="sec-label">HASHES_06</span>
+            </div>
+            <div class="card-body">
+                <p class="card-description text-secondary" style="margin-bottom: 2rem;">
+                    Examine these one-way hashing conversions. Same characters consistently generate these exact hex outputs. Securing systems properly relies on these unique digital footprints.
+                </p>
+
+                <div class="digests-display-column">
+                    {% for key, hash in hashes.items() %}
+                    <div class="hash-result-block">
+                        <div class="hash-result-header">
+                            <div class="hash-name-group">
+                                <span class="hash-pill {{ key }}">{{ key|upper }}</span>
+                                <h4 class="hash-title font-mono">{{ hash.name }}</h4>
+                            </div>
+                            <span class="hash-badge-status {{ hash.status_class }} font-mono">{{ hash.status }}</span>
+                        </div>
+                        <div class="hash-result-code font-mono">
+                            <span class="code-text" id="resultHash{{ key|upper }}">{{ hash.digest }}</span>
+                            <button type="button" class="hash-copy-btn tooltip" onclick="copyTextById('resultHash{{ key|upper }}', this)">
+                                <i class="fa-solid fa-copy"></i>
+                                <span class="tooltiptext">Copy hash</span>
+                            </button>
+                        </div>
+                        <p class="hash-explanation-text text-secondary">
+                            {{ hash.desc }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Back to audit action links -->
+        <div class="back-action-container text-center animate-fade-in" style="margin: 3.5rem 0;">
+            <a href="/" class="cyber-btn btn-primary">
+                <i class="fa-solid fa-chevron-left btn-icon"></i>
+                Audit Another Key
+            </a>
+        </div>
+    </main>
+
+    <footer class="app-footer text-center">
+        <div class="footer-container">
+            <p><i class="fa-solid fa-user-shield text-blue"></i> CyberShield Defensive Intelligence Sandbox &copy; 2026</p>
+            <p class="license-note">Secure Local Sandbox &bull; Built using Node.js, Express, TypeScript, Vanilla JS, & CSS3 Variables</p>
+        </div>
+    </footer>
+
+    <script>
+        // Password Obscuration & Visibility Toggle on Result page
+        const passwordSpan = document.getElementById('analyzedPassword');
+        const toggleBtn = document.getElementById('toggleResultVisibility');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const eyeOffIcon = document.getElementById('eyeOffIcon');
+        
+        if (passwordSpan && toggleBtn) {
+            const originalPassword = passwordSpan.innerText;
+            const obscuredPassword = '•'.repeat(Math.min(24, originalPassword.length)) || '••••';
+            
+            // Set default obscured state
+            let isVisible = false;
+            passwordSpan.innerHTML = obscuredPassword;
+            
+            toggleBtn.addEventListener('click', () => {
+                isVisible = !isVisible;
+                if (isVisible) {
+                    passwordSpan.innerText = originalPassword;
+                    eyeIcon.classList.add('hidden');
+                    eyeOffIcon.classList.remove('hidden');
+                } else {
+                    passwordSpan.innerHTML = obscuredPassword;
+                    eyeIcon.classList.remove('hidden');
+                    eyeOffIcon.classList.add('hidden');
+                }
+            });
+        }
+
+        // Dedicated helper function for copying hashes to clipboard
+        function copyTextById(elementId, buttonElement) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            const tooltip = buttonElement.querySelector('.tooltiptext');
+            
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    if (tooltip) {
+                        tooltip.innerText = "Copied!";
+                        setTimeout(() => {
+                            tooltip.innerText = "Copy hash";
+                        }, 2000);
+                    }
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        }
+    </script>
+</body>
+</html>
